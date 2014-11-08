@@ -1,0 +1,198 @@
+<html>
+<head>
+<title>Texas Music & HighCharts.js</title>
+<script src="http://code.jquery.com/jquery-2.1.1.js" type="text/javascript"></script>
+<script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
+<style>
+.main{
+margin-left: auto;
+margin-right: auto;
+width: 70%;
+padding: 30px;
+background-color:#F5F6F7;
+}
+
+body {
+  background-image: url('skulls.png');
+}
+
+hr.symbol {
+    width: 70%;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+}
+</style>
+</head>
+<body style="background-color:white;font-family:Nunito;">
+
+<div class="main">
+
+<h1 style="text-align:center;margin-top:10px;">Texas Music Industry Listings, 1991-2014</h1>
+
+<div style="background-color:#F5F6F7;padding:30px;margin-left:auto;margin-right:auto;">
+<div id="container2" style="max-width: 900px; height: 400px; margin: 0 auto"></div>
+</div>
+
+
+<h3>A Tale Over Time</h3>
+<p>The data depicted in the graph above was sourced from <a href="http://governor.state.tx.us/music/about/stateof/" target="_blank"> the Texas Music Office</a>, and demonstrates the shift in volume for registered industry positions in the state of Texas. This value encompasses a wide variety of employment options for Texas musicians: private individuals, performing groups, and even teachers are included. </p>
+<p>Since the start of the annual record in 1998, the amount of listings has risen from a modest <b>1,160</b> to that of over <b>18,000</b>. <em>That's a total increase of over 1400% over 23 years.</em></p> 
+<p>But the question remains: what does <b>'typical employment'</b> look like for the individuals within this industry?</p>
+
+
+
+<br/><br/><hr class="symbol">
+<h2 style="text-align:center;">Employment Breakdown for Texas Musicians, 2014</h2>
+
+<div id="container" style="max-width: 70%; height: 400px; margin: 0 auto"></div>
+
+<h3>Counting Heads</h3>
+<p>At the time of this writing, the total volume of employment among registered musicians in the state of Texas amounts to over 135,000 people. And, as one might expect, such a large body of people translates into a massive volume of potential forms of employment.</p>
+<p><a href="http://governor.state.tx.us/music/about/stateof/" target="_blank">According to the data</a>, the largest share of individuals that belong to this category are, unsurprisingly, working as musicians. The second and third largest groups, representing 15% each respectively, belong to performing groups and touring services. Following this work we see nightclubs, radio work, and academia enter the picture.</p>
+<p>Needless to say, the data is unambiguous: <em>Texas Musicians are doing a whole lot more than just making music</em>.</p>
+<br/>
+
+
+</div>
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotShadow: false,
+            backgroundColor: '#F5F6F7',
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Workforce Share',
+            data: [
+                ['Work as Musicians',   	23],
+                ['Nightclubs',       14],
+                ['Teachers',    8],
+                ['Touring Services',     15],
+                ['Performing Arts Groups',     15],
+                ['Radio',     8],
+                ['Other',     17],
+            ],
+            colors: ['#334D5C', '#669AB8', '#45B29D', '#EFC94C', 
+                             '#E27A3F', '#DF5A49', '#DF4980']
+        }]
+    });
+});
+
+
+
+
+
+$(function () {
+    $('#container2').highcharts({
+        chart: {
+            backgroundColor: '#F5F6F7',
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            allowDecimals: false,
+            categories: [
+                '1991',
+                '1992',
+                '1993',
+                '1994',
+                '1995',
+                '1996',
+                '1997',
+                '1998',
+                '1999',
+                '2000',
+                '2001',
+                '2002',
+                '2003',
+                '2004',
+                '2005',
+                '2006',
+                '2007',
+                '2008',
+                '2009',
+                '2010',
+                '2011',
+                '2012',
+                '2013',
+                '2014'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            allowDecimals: false,
+            changeDecimals: 0,
+            title: {
+                text: 'Registered Listings'
+            }
+        },
+        tooltip: {
+            headerFormat: '<p style="font-size:18px;text-align:center;padding:0;margin:0;color:black;">- {point.key} -</p><table>',
+            pointFormat: '<tr><td style="color:{series.color};font-size:14px;padding:0;min-width:140px;">{series.name}: </td>' +
+                '<td style="padding:0;min-width:100px;color:black;">{point.y:.1f} </td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true,
+            changeDecimals: 0,
+            valueDecimals: 0,
+            backgroundColor: 'white',
+        },
+        plotOptions: {
+            column: {
+            
+                pointPadding: 0.2,
+                borderWidth: 0,
+                pointWidth: 20
+            }
+        },
+        colors: [
+            '#00639C',
+        ],
+        series: [{
+        type : "area",
+            fillColor : {
+              linearGradient : [0, 0, 0, 300],
+              stops : [
+                [0, Highcharts.getOptions().colors[0]],
+                [1, 'rgba(0,0,250,0)']
+              ]
+            },
+            name: 'Registration Count',
+            data: [1160, 3259, 4437, 4974, 6422, 7575, 8072, 9433, 10152, 11133, 11818, 13034, 13587, 14573, 14830, 15278, 15461, 15962, 16791, 17141, 17243, 17585, 17875, 18181]
+
+        }]
+    });
+});
+</script>
+</body>
+</html>
